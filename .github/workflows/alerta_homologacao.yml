@@ -26,4 +26,4 @@ jobs:
         env:
           AZURE_PAT: ${{ secrets.AZURE_PAT }}
           HOMOLOGACAO_WEBHOOK_URL: ${{ secrets.HOMOLOGACAO_WEBHOOK_URL }}
-        run: python alerta_homologocao.py
+        run: python alerta_homologacao.py
