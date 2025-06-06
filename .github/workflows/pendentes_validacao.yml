@@ -1,0 +1,28 @@
+name: Alerta de Itens Pendentes de Validação
+
+on:
+  schedule:
+    - cron: '0 11,15,19 * * 1-5' # 08h, 12h, 16h BRT (UTC+3)
+  workflow_dispatch:
+
+jobs:
+  alerta-pendentes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+
+      - name: Executar alerta de pendência de validação
+        env:
+          AZURE_PAT: ${{ secrets.AZURE_PAT }}
+          HOMOLOGACAO_WEBHOOK_URL: ${{ secrets.HOMOLOGACAO_WEBHOOK_URL }}
+        run: python alerta_pendentes_validacao.py

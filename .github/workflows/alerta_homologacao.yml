@@ -1,0 +1,29 @@
+name: Alerta de Homologação
+
+on:
+  schedule:
+    - cron: '0,15,30,45 11-20 * * 1-5'  # De hora em hora das 08:00 às 17:45 (UTC) => 08h às 18h BRT
+  workflow_dispatch:
+
+jobs:
+  alerta-homologacao:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Executar script de alerta de homologação
+        env:
+          AZURE_PAT: ${{ secrets.AZURE_PAT }}
+          HOMOLOGACAO_WEBHOOK_URL: ${{ secrets.HOMOLOGACAO_WEBHOOK_URL }}
+        run: python alerta_techlead.py

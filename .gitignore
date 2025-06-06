@@ -1,0 +1,30 @@
+# Ambiente e arquivos sensíveis
+.env
+.env.*
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Config do VSCode (opcional)
+.vscode/
+
+# Arquivos temporários
+*.log
+*.tmp
+
+# Dependências específicas
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+
+# macOS / Windows / Linux
+.DS_Store
+Thumbs.db
+.idea/
